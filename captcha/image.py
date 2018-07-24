@@ -138,7 +138,7 @@ class ImageCaptcha(_Captcha):
         return image
 
     @staticmethod
-    def create_noise_dots(image, color, width=3, number=30):
+    def create_noise_dots(image, color, width=5, number=50):
         draw = Draw(image)
         w, h = image.size
         while number:
@@ -167,6 +167,7 @@ class ImageCaptcha(_Captcha):
             dx = random.randint(0, 4)
             dy = random.randint(0, 6)
             im = Image.new('RGBA', (w + dx, h + dy))
+            color = random_color(40, 180, random.randint(220, 255))
             Draw(im).text((dx, dy), c, font=font, fill=color)
 
             # rotate
@@ -223,7 +224,7 @@ class ImageCaptcha(_Captcha):
 
         :param chars: text to be generated.
         """
-        background = random_color(238, 255)
+        background = random_color(80, 255)
         color = random_color(10, 200, random.randint(220, 255))
         im = self.create_captcha_image(chars, color, background)
         self.create_noise_dots(im, color)
